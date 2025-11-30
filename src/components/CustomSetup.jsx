@@ -8,7 +8,6 @@ const roleIcons = {
   doctor: Shield,
   investigator: Search,
   bodyguard: Crosshair,
-  lookout: Eye,
   escort: UserX,
   mayor: Sparkles,
   veteran: AlertTriangle,
@@ -21,7 +20,6 @@ const roleIcons = {
   executioner: Target,
   serial_killer: Crosshair,
   survivor: Heart,
-  witch: Sparkles,
   arsonist: Flame,
 };
 

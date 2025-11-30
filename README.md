@@ -9,7 +9,7 @@ A sleek Game Master companion app for real-life Mafia/Town of Salem games. Built
 ### For Game Masters
 - **Player Management**: Add and remove players with an intuitive interface
 - **Standard Game Mode**: Automatic balanced role distribution based on player count
-- **Custom Game Mode**: Build your own game with any combination of 19 different roles
+- **Custom Game Mode**: Build your own game with any combination of 17 different roles
 - **Role Dashboard**: View all player assignments at a glance
 - **Re-roll**: Generate new role assignments with the same players
 - **Mobile-First Design**: Optimized for holding on your phone during games
@@ -43,7 +43,6 @@ Build your own game! Choose from all 19 roles and set the exact count for each.
 | Doctor | Heals one player each night | Good |
 | Investigator | Checks if player is Good/Not Good | Good |
 | Bodyguard | Protects a player, both die if attacked | Good |
-| Lookout | Sees who visits a player at night | Good |
 | Escort | Roleblocks a player each night | Good |
 | Mayor | Can reveal for 3x voting power | Good |
 | Veteran | Goes on alert, kills all visitors | Good |
@@ -64,7 +63,6 @@ Build your own game! Choose from all 19 roles and set the exact count for each.
 | Executioner | Get your target lynched | Not Good |
 | Serial Killer | Be last standing | Not Good |
 | Survivor | Survive to the end | Good |
-| Witch | Survive, see Town lose | Not Good |
 | Arsonist | Be last standing | Not Good |
 
 ## Tech Stack

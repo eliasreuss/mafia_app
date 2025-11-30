@@ -26,12 +26,6 @@ const roleConfig = {
     bgColor: 'bg-town/10',
     borderColor: 'border-town/30',
   },
-  Lookout: {
-    icon: Eye,
-    color: 'text-town',
-    bgColor: 'bg-town/10',
-    borderColor: 'border-town/30',
-  },
   Escort: {
     icon: UserX,
     color: 'text-town',
@@ -100,12 +94,6 @@ const roleConfig = {
   },
   Survivor: {
     icon: Heart,
-    color: 'text-neutral',
-    bgColor: 'bg-neutral/10',
-    borderColor: 'border-neutral/30',
-  },
-  Witch: {
-    icon: Sparkles,
     color: 'text-neutral',
     bgColor: 'bg-neutral/10',
     borderColor: 'border-neutral/30',

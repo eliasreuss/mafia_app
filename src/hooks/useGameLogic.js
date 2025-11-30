@@ -35,14 +35,6 @@ export const ROLES = {
     ability: 'Protect',
     investigatorResult: 'Good',
   },
-  LOOKOUT: {
-    id: 'lookout',
-    name: 'Lookout',
-    faction: 'town',
-    description: 'Watches a player at night and sees who visits them.',
-    ability: 'Watch',
-    investigatorResult: 'Good',
-  },
   ESCORT: {
     id: 'escort',
     name: 'Escort',
@@ -143,14 +135,6 @@ export const ROLES = {
     description: 'Has limited bulletproof vests. Wins by simply surviving until the end.',
     ability: 'Vest',
     investigatorResult: 'Good',
-  },
-  WITCH: {
-    id: 'witch',
-    name: 'Witch',
-    faction: 'neutral',
-    description: 'Controls a player each night, choosing who they target with their ability.',
-    ability: 'Control',
-    investigatorResult: 'Not Good',
   },
   ARSONIST: {
     id: 'arsonist',
