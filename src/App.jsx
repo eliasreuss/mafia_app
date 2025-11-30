@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { LandingPage } from './components/LandingPage';
 import { PlayerInput } from './components/PlayerInput';
+import { CustomSetup } from './components/CustomSetup';
 import { GameDashboard } from './components/GameDashboard';
 import { RoleGuide } from './components/RoleGuide';
 import { useGameLogic } from './hooks/useGameLogic';
@@ -13,13 +14,18 @@ function App() {
     players,
     assignments,
     gamePhase,
+    gameMode,
     addPlayer,
     removePlayer,
-    startGame,
+    startStandardGame,
+    goToCustomSetup,
+    startCustomGame,
     reroll,
     reset,
+    backToPlayerInput,
     getDistributionPreview,
-    canStart,
+    canStartStandard,
+    canStartCustom,
   } = useGameLogic();
 
   const handleSelectGameMaster = () => {
@@ -105,10 +111,28 @@ function App() {
                 players={players}
                 onAddPlayer={addPlayer}
                 onRemovePlayer={removePlayer}
-                onStartGame={startGame}
-                canStart={canStart}
+                onStartStandard={startStandardGame}
+                onStartCustom={goToCustomSetup}
+                canStartStandard={canStartStandard}
+                canStartCustom={canStartCustom}
                 distributionPreview={getDistributionPreview()}
                 onBack={handleBackToLanding}
+              />
+            </motion.div>
+          )}
+
+          {appMode === 'gm' && gamePhase === 'custom-setup' && (
+            <motion.div
+              key="custom-setup"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              <CustomSetup
+                playerCount={players.length}
+                onStartGame={startCustomGame}
+                onBack={backToPlayerInput}
               />
             </motion.div>
           )}

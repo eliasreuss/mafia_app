@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { UserPlus, X, Users, Play, Skull, Shield, Search, Ghost, Target, ArrowLeft } from 'lucide-react';
+import { UserPlus, X, Users, Play, Skull, Shield, Search, Ghost, Target, ArrowLeft, Settings } from 'lucide-react';
 
 const roleIcons = {
   mafia: <Skull className="w-3.5 h-3.5" />,
@@ -15,8 +15,10 @@ export function PlayerInput({
   players, 
   onAddPlayer, 
   onRemovePlayer, 
-  onStartGame, 
-  canStart,
+  onStartStandard,
+  onStartCustom,
+  canStartStandard,
+  canStartCustom,
   distributionPreview,
   onBack 
 }) {
@@ -29,7 +31,6 @@ export function PlayerInput({
     if (success) {
       setInputValue('');
     } else if (inputValue.trim()) {
-      // Name already exists or invalid
       setShake(true);
       setTimeout(() => setShake(false), 500);
     }
@@ -142,7 +143,7 @@ export function PlayerInput({
             >
               <Users className="w-12 h-12 mb-3 opacity-30" />
               <p className="text-sm">No players added yet</p>
-              <p className="text-xs text-neutral-600 mt-1">Need at least 5 players to start</p>
+              <p className="text-xs text-neutral-600 mt-1">Add at least 3 players for custom, 5 for standard</p>
             </motion.div>
           ) : (
             <motion.div layout className="flex flex-wrap gap-2">
@@ -179,7 +180,7 @@ export function PlayerInput({
         </AnimatePresence>
       </motion.div>
 
-      {/* Distribution Preview */}
+      {/* Distribution Preview (Standard Mode) */}
       <AnimatePresence>
         {distributionPreview && (
           <motion.div
@@ -188,7 +189,7 @@ export function PlayerInput({
             exit={{ opacity: 0, height: 0 }}
             className="glass-darker rounded-2xl p-4 mb-6 overflow-hidden"
           >
-            <p className="text-xs text-neutral-500 uppercase tracking-wider mb-3">Role Distribution</p>
+            <p className="text-xs text-neutral-500 uppercase tracking-wider mb-3">Standard Distribution</p>
             <div className="grid grid-cols-3 gap-2">
               {distributionPreview.mafia > 0 && (
                 <div className="flex items-center gap-2 text-blood">
@@ -231,26 +232,48 @@ export function PlayerInput({
         )}
       </AnimatePresence>
 
-      {/* Start Button */}
-      <motion.button
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4 }}
-        whileHover={canStart ? { scale: 1.02, y: -2 } : {}}
-        whileTap={canStart ? { scale: 0.98 } : {}}
-        onClick={onStartGame}
-        disabled={!canStart}
-        className={`w-full py-4 rounded-2xl font-semibold text-lg flex items-center justify-center gap-3
-                  transition-all duration-300 ${
-                    canStart
-                      ? 'bg-gradient-to-r from-blood via-red-600 to-blood-dark text-white shadow-xl shadow-blood/30 hover:shadow-blood/50'
-                      : 'bg-noir-800 text-neutral-600 cursor-not-allowed'
-                  }`}
-      >
-        <Play className={`w-5 h-5 ${canStart ? 'animate-pulse' : ''}`} />
-        {canStart ? 'Start Game' : `Need ${5 - players.length} more player${5 - players.length !== 1 ? 's' : ''}`}
-      </motion.button>
+      {/* Game Mode Buttons */}
+      <div className="space-y-3">
+        {/* Standard Game Button */}
+        <motion.button
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          whileHover={canStartStandard ? { scale: 1.02, y: -2 } : {}}
+          whileTap={canStartStandard ? { scale: 0.98 } : {}}
+          onClick={onStartStandard}
+          disabled={!canStartStandard}
+          className={`w-full py-4 rounded-2xl font-semibold text-lg flex items-center justify-center gap-3
+                    transition-all duration-300 ${
+                      canStartStandard
+                        ? 'bg-gradient-to-r from-blood via-red-600 to-blood-dark text-white shadow-xl shadow-blood/30 hover:shadow-blood/50'
+                        : 'bg-noir-800 text-neutral-600 cursor-not-allowed'
+                    }`}
+        >
+          <Play className={`w-5 h-5 ${canStartStandard ? 'animate-pulse' : ''}`} />
+          {canStartStandard ? 'Standard Game' : `Need ${5 - players.length} more for standard`}
+        </motion.button>
+
+        {/* Custom Game Button */}
+        <motion.button
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          whileHover={canStartCustom ? { scale: 1.02, y: -2 } : {}}
+          whileTap={canStartCustom ? { scale: 0.98 } : {}}
+          onClick={onStartCustom}
+          disabled={!canStartCustom}
+          className={`w-full py-4 rounded-2xl font-semibold text-lg flex items-center justify-center gap-3
+                    transition-all duration-300 border ${
+                      canStartCustom
+                        ? 'bg-noir-800/50 border-neutral/50 text-neutral-200 hover:bg-noir-700/50 hover:border-neutral'
+                        : 'bg-noir-800 border-noir-700 text-neutral-600 cursor-not-allowed'
+                    }`}
+        >
+          <Settings className={`w-5 h-5`} />
+          {canStartCustom ? 'Custom Game' : `Need ${3 - players.length} more for custom`}
+        </motion.button>
+      </div>
     </motion.div>
   );
 }
-

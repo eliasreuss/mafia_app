@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { RefreshCw, RotateCcw, Skull, Shield, Search, Ghost, Target, Users } from 'lucide-react';
+import { RefreshCw, RotateCcw, Skull, Shield, Search, Ghost, Target, Users, Eye, UserX, Flame, Sparkles, Crosshair, AlertTriangle, Heart } from 'lucide-react';
 
 const roleConfig = {
   Villager: {
@@ -7,47 +7,124 @@ const roleConfig = {
     color: 'text-town',
     bgColor: 'bg-town/10',
     borderColor: 'border-town/30',
-    glowClass: 'hover:shadow-town/20',
   },
   Doctor: {
     icon: Shield,
     color: 'text-town',
     bgColor: 'bg-town/10',
     borderColor: 'border-town/30',
-    glowClass: 'hover:shadow-town/20',
   },
   Investigator: {
     icon: Search,
     color: 'text-town',
     bgColor: 'bg-town/10',
     borderColor: 'border-town/30',
-    glowClass: 'hover:shadow-town/20',
+  },
+  Bodyguard: {
+    icon: Crosshair,
+    color: 'text-town',
+    bgColor: 'bg-town/10',
+    borderColor: 'border-town/30',
+  },
+  Lookout: {
+    icon: Eye,
+    color: 'text-town',
+    bgColor: 'bg-town/10',
+    borderColor: 'border-town/30',
+  },
+  Escort: {
+    icon: UserX,
+    color: 'text-town',
+    bgColor: 'bg-town/10',
+    borderColor: 'border-town/30',
+  },
+  Mayor: {
+    icon: Sparkles,
+    color: 'text-town',
+    bgColor: 'bg-town/10',
+    borderColor: 'border-town/30',
+  },
+  Veteran: {
+    icon: AlertTriangle,
+    color: 'text-town',
+    bgColor: 'bg-town/10',
+    borderColor: 'border-town/30',
   },
   Mafioso: {
     icon: Skull,
     color: 'text-blood',
     bgColor: 'bg-blood/10',
     borderColor: 'border-blood/30',
-    glowClass: 'hover:shadow-blood/20',
+  },
+  Godfather: {
+    icon: Skull,
+    color: 'text-blood',
+    bgColor: 'bg-blood/10',
+    borderColor: 'border-blood/30',
+  },
+  Consort: {
+    icon: UserX,
+    color: 'text-blood',
+    bgColor: 'bg-blood/10',
+    borderColor: 'border-blood/30',
+  },
+  Framer: {
+    icon: Target,
+    color: 'text-blood',
+    bgColor: 'bg-blood/10',
+    borderColor: 'border-blood/30',
+  },
+  Janitor: {
+    icon: Ghost,
+    color: 'text-blood',
+    bgColor: 'bg-blood/10',
+    borderColor: 'border-blood/30',
   },
   Jester: {
     icon: Ghost,
     color: 'text-neutral',
     bgColor: 'bg-neutral/10',
     borderColor: 'border-neutral/30',
-    glowClass: 'hover:shadow-neutral/20',
   },
   Executioner: {
     icon: Target,
     color: 'text-neutral',
     bgColor: 'bg-neutral/10',
     borderColor: 'border-neutral/30',
-    glowClass: 'hover:shadow-neutral/20',
+  },
+  'Serial Killer': {
+    icon: Crosshair,
+    color: 'text-neutral',
+    bgColor: 'bg-neutral/10',
+    borderColor: 'border-neutral/30',
+  },
+  Survivor: {
+    icon: Heart,
+    color: 'text-neutral',
+    bgColor: 'bg-neutral/10',
+    borderColor: 'border-neutral/30',
+  },
+  Witch: {
+    icon: Sparkles,
+    color: 'text-neutral',
+    bgColor: 'bg-neutral/10',
+    borderColor: 'border-neutral/30',
+  },
+  Arsonist: {
+    icon: Flame,
+    color: 'text-neutral',
+    bgColor: 'bg-neutral/10',
+    borderColor: 'border-neutral/30',
   },
 };
 
 function PlayerCard({ assignment, index }) {
-  const config = roleConfig[assignment.role.name] || roleConfig.Villager;
+  const config = roleConfig[assignment.role.name] || {
+    icon: Users,
+    color: 'text-neutral-400',
+    bgColor: 'bg-neutral-500/10',
+    borderColor: 'border-neutral-500/30',
+  };
   const Icon = config.icon;
 
   return (
@@ -62,7 +139,7 @@ function PlayerCard({ assignment, index }) {
         damping: 30,
         delay: index * 0.05 
       }}
-      className={`glass rounded-xl p-4 border ${config.borderColor} ${config.glowClass}
+      className={`glass rounded-xl p-4 border ${config.borderColor}
                 hover:shadow-lg transition-all duration-300`}
     >
       <div className="flex items-start justify-between">

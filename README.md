@@ -8,17 +8,21 @@ A sleek Game Master companion app for real-life Mafia/Town of Salem games. Built
 
 ### For Game Masters
 - **Player Management**: Add and remove players with an intuitive interface
-- **Automatic Role Distribution**: Balanced role assignment based on player count
+- **Standard Game Mode**: Automatic balanced role distribution based on player count
+- **Custom Game Mode**: Build your own game with any combination of 19 different roles
 - **Role Dashboard**: View all player assignments at a glance
 - **Re-roll**: Generate new role assignments with the same players
 - **Mobile-First Design**: Optimized for holding on your phone during games
 
 ### For Players
-- **Role Guide**: Learn about all available roles
-- **Detailed Explanations**: Understand win conditions and investigator results
+- **Role Guide**: Learn about all 19 available roles
+- **Detailed Explanations**: Understand abilities, win conditions, and investigator results
 - **Faction Overview**: Browse Town, Mafia, and Neutral roles
 
-## Role Distribution
+## Game Modes
+
+### Standard Mode (5+ players)
+Balanced role distribution:
 
 | Players | Mafia | Doctor | Investigator | Jester | Executioner | Villagers |
 |---------|-------|--------|--------------|--------|-------------|-----------|
@@ -27,23 +31,41 @@ A sleek Game Master companion app for real-life Mafia/Town of Salem games. Built
 | 9       | 3     | 1      | 1            | 1      | -           | Rest      |
 | 10+     | 3     | 1      | 1            | 1      | 1           | Rest      |
 
-## Roles
+### Custom Mode (3+ players)
+Build your own game! Choose from all 19 roles and set the exact count for each.
+
+## All Roles
 
 ### Town (Goal: Eliminate all evil)
-- **Villager** - No special abilities
-- **Doctor** - Heals one player each night
-- **Investigator** - Checks if a player is "Good" or "Not Good"
+| Role | Ability | Investigator Result |
+|------|---------|---------------------|
+| Villager | None | Good |
+| Doctor | Heals one player each night | Good |
+| Investigator | Checks if player is Good/Not Good | Good |
+| Bodyguard | Protects a player, both die if attacked | Good |
+| Lookout | Sees who visits a player at night | Good |
+| Escort | Roleblocks a player each night | Good |
+| Mayor | Can reveal for 3x voting power | Good |
+| Veteran | Goes on alert, kills all visitors | Good |
 
 ### Mafia (Goal: Outnumber the Town)
-- **Mafioso** - Kills one player each night with fellow Mafia
+| Role | Ability | Investigator Result |
+|------|---------|---------------------|
+| Mafioso | Kills for the Mafia | Not Good |
+| Godfather | Kills, appears innocent | Good |
+| Consort | Mafia roleblock | Not Good |
+| Framer | Makes target appear evil | Not Good |
+| Janitor | Hides victim's role | Not Good |
 
 ### Neutral (Individual goals)
-- **Jester** - Wins by getting lynched
-- **Executioner** - Wins by getting their assigned target lynched
-
-## Investigator Results
-- **Good**: Villager, Doctor, Investigator
-- **Not Good**: Mafioso, Jester, Executioner
+| Role | Goal | Investigator Result |
+|------|------|---------------------|
+| Jester | Get yourself lynched | Not Good |
+| Executioner | Get your target lynched | Not Good |
+| Serial Killer | Be last standing | Not Good |
+| Survivor | Survive to the end | Good |
+| Witch | Survive, see Town lose | Not Good |
+| Arsonist | Be last standing | Not Good |
 
 ## Tech Stack
 

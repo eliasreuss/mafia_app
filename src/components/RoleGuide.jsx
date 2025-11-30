@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, Skull, Shield, Search, Ghost, Target, Users } from 'lucide-react';
+import { ArrowLeft, Skull, Shield, Search, Ghost, Target, Users, Eye, UserX, Flame, Sparkles, Crosshair, AlertTriangle, Heart } from 'lucide-react';
 
 const roles = [
+  // Town roles
   {
     id: 'villager',
     name: 'Villager',
@@ -38,10 +39,77 @@ const roles = [
     bgColor: 'bg-town/10',
     borderColor: 'border-town/30',
     shortDesc: 'Checks one player each night',
-    description: 'The Investigator can check one player each night to learn if they are "Good" or "Not Good". Town roles (Villager, Doctor, Investigator) show as Good. Mafia and Neutral roles (Mafioso, Jester, Executioner) show as Not Good.',
+    description: 'The Investigator can check one player each night to learn if they are "Good" or "Not Good". Town roles show as Good. Mafia and most Neutral roles show as Not Good. Note: Godfather and Survivor appear as Good.',
     winCondition: 'Eliminate all Mafia members and hostile Neutrals.',
     investigatorResult: 'Good',
   },
+  {
+    id: 'bodyguard',
+    name: 'Bodyguard',
+    faction: 'town',
+    icon: Crosshair,
+    color: 'text-town',
+    bgColor: 'bg-town/10',
+    borderColor: 'border-town/30',
+    shortDesc: 'Protects at cost of life',
+    description: 'The Bodyguard protects a player at night. If that player is attacked, the Bodyguard will kill the attacker but also die in the process. A noble sacrifice for the Town.',
+    winCondition: 'Eliminate all Mafia members and hostile Neutrals.',
+    investigatorResult: 'Good',
+  },
+  {
+    id: 'lookout',
+    name: 'Lookout',
+    faction: 'town',
+    icon: Eye,
+    color: 'text-town',
+    bgColor: 'bg-town/10',
+    borderColor: 'border-town/30',
+    shortDesc: 'Watches who visits a player',
+    description: 'The Lookout watches a player at night and sees everyone who visits them. This can help identify the Mafia or confirm other Town roles.',
+    winCondition: 'Eliminate all Mafia members and hostile Neutrals.',
+    investigatorResult: 'Good',
+  },
+  {
+    id: 'escort',
+    name: 'Escort',
+    faction: 'town',
+    icon: UserX,
+    color: 'text-town',
+    bgColor: 'bg-town/10',
+    borderColor: 'border-town/30',
+    shortDesc: 'Roleblocks a player',
+    description: 'The Escort roleblocks a player each night, preventing them from using their ability. Can stop a Mafia kill if you block the right person.',
+    winCondition: 'Eliminate all Mafia members and hostile Neutrals.',
+    investigatorResult: 'Good',
+  },
+  {
+    id: 'mayor',
+    name: 'Mayor',
+    faction: 'town',
+    icon: Sparkles,
+    color: 'text-town',
+    bgColor: 'bg-town/10',
+    borderColor: 'border-town/30',
+    shortDesc: 'Vote counts as 3',
+    description: 'The Mayor can reveal themselves during the day. Once revealed, their vote counts as 3 votes. However, the Doctor cannot heal a revealed Mayor.',
+    winCondition: 'Eliminate all Mafia members and hostile Neutrals.',
+    investigatorResult: 'Good',
+  },
+  {
+    id: 'veteran',
+    name: 'Veteran',
+    faction: 'town',
+    icon: AlertTriangle,
+    color: 'text-town',
+    bgColor: 'bg-town/10',
+    borderColor: 'border-town/30',
+    shortDesc: 'Kills all visitors on alert',
+    description: 'The Veteran can go on alert at night (limited uses). Anyone who visits the Veteran while on alert will be killed—including Town members. Use carefully!',
+    winCondition: 'Eliminate all Mafia members and hostile Neutrals.',
+    investigatorResult: 'Good',
+  },
+  
+  // Mafia roles
   {
     id: 'mafioso',
     name: 'Mafioso',
@@ -55,6 +123,60 @@ const roles = [
     winCondition: 'Equal or outnumber the Town (and eliminate threats).',
     investigatorResult: 'Not Good',
   },
+  {
+    id: 'godfather',
+    name: 'Godfather',
+    faction: 'mafia',
+    icon: Skull,
+    color: 'text-blood',
+    bgColor: 'bg-blood/10',
+    borderColor: 'border-blood/30',
+    shortDesc: 'Appears innocent to Invest.',
+    description: 'The Godfather is the leader of the Mafia. They appear as "Good" to Investigators, making them harder to detect. They can also perform the Mafia kill.',
+    winCondition: 'Equal or outnumber the Town (and eliminate threats).',
+    investigatorResult: 'Good',
+  },
+  {
+    id: 'consort',
+    name: 'Consort',
+    faction: 'mafia',
+    icon: UserX,
+    color: 'text-blood',
+    bgColor: 'bg-blood/10',
+    borderColor: 'border-blood/30',
+    shortDesc: 'Mafia roleblock',
+    description: 'The Consort is the Mafia\'s roleblock. They can prevent a player from using their ability each night—perfect for stopping Investigators or Doctors.',
+    winCondition: 'Equal or outnumber the Town (and eliminate threats).',
+    investigatorResult: 'Not Good',
+  },
+  {
+    id: 'framer',
+    name: 'Framer',
+    faction: 'mafia',
+    icon: Target,
+    color: 'text-blood',
+    bgColor: 'bg-blood/10',
+    borderColor: 'border-blood/30',
+    shortDesc: 'Makes target appear evil',
+    description: 'The Framer frames a player each night, making them appear as "Not Good" to Investigators. Great for getting innocent Town members lynched.',
+    winCondition: 'Equal or outnumber the Town (and eliminate threats).',
+    investigatorResult: 'Not Good',
+  },
+  {
+    id: 'janitor',
+    name: 'Janitor',
+    faction: 'mafia',
+    icon: Ghost,
+    color: 'text-blood',
+    bgColor: 'bg-blood/10',
+    borderColor: 'border-blood/30',
+    shortDesc: 'Hides victim\'s role',
+    description: 'The Janitor can clean the Mafia\'s kill, hiding the victim\'s role from the Town. Only the Janitor learns the cleaned role.',
+    winCondition: 'Equal or outnumber the Town (and eliminate threats).',
+    investigatorResult: 'Not Good',
+  },
+  
+  // Neutral roles
   {
     id: 'jester',
     name: 'Jester',
@@ -79,6 +201,58 @@ const roles = [
     shortDesc: 'Must get target lynched',
     description: 'The Executioner is assigned a specific Town member as their target. Your goal is to get your target lynched by the Town—through manipulation, false accusations, or strategic voting.',
     winCondition: 'Get your assigned target lynched by the Town.',
+    investigatorResult: 'Not Good',
+  },
+  {
+    id: 'serial_killer',
+    name: 'Serial Killer',
+    faction: 'neutral',
+    icon: Crosshair,
+    color: 'text-neutral',
+    bgColor: 'bg-neutral/10',
+    borderColor: 'border-neutral/30',
+    shortDesc: 'Kills independently',
+    description: 'The Serial Killer is a lone wolf who kills one player each night, independent of the Mafia. If roleblocked, the Serial Killer kills the roleblocker instead.',
+    winCondition: 'Be the last player standing.',
+    investigatorResult: 'Not Good',
+  },
+  {
+    id: 'survivor',
+    name: 'Survivor',
+    faction: 'neutral',
+    icon: Heart,
+    color: 'text-neutral',
+    bgColor: 'bg-neutral/10',
+    borderColor: 'border-neutral/30',
+    shortDesc: 'Just wants to live',
+    description: 'The Survivor has limited bulletproof vests that can protect them at night. They have no allegiance—their only goal is to survive until the end of the game.',
+    winCondition: 'Survive until the end of the game.',
+    investigatorResult: 'Good',
+  },
+  {
+    id: 'witch',
+    name: 'Witch',
+    faction: 'neutral',
+    icon: Sparkles,
+    color: 'text-neutral',
+    bgColor: 'bg-neutral/10',
+    borderColor: 'border-neutral/30',
+    shortDesc: 'Controls other players',
+    description: 'The Witch can control a player each night, choosing who they target with their ability. Can force a Vigilante to shoot a Town member or redirect a Doctor\'s heal.',
+    winCondition: 'Survive to see Town lose.',
+    investigatorResult: 'Not Good',
+  },
+  {
+    id: 'arsonist',
+    name: 'Arsonist',
+    faction: 'neutral',
+    icon: Flame,
+    color: 'text-neutral',
+    bgColor: 'bg-neutral/10',
+    borderColor: 'border-neutral/30',
+    shortDesc: 'Douses and ignites',
+    description: 'The Arsonist douses players in gasoline each night. At any point, they can choose to ignite instead, killing all doused players at once. Patient but deadly.',
+    winCondition: 'Be the last player standing.',
     investigatorResult: 'Not Good',
   },
 ];
@@ -211,7 +385,7 @@ export function RoleGuide({ onBack }) {
             <div className="mb-6">
               <div className="flex items-center gap-2 mb-3">
                 <div className="w-2 h-2 rounded-full bg-town"></div>
-                <h3 className="text-xs uppercase tracking-wider text-neutral-500">Town</h3>
+                <h3 className="text-xs uppercase tracking-wider text-neutral-500">Town ({townRoles.length} roles)</h3>
               </div>
               <div className="grid grid-cols-2 gap-3 auto-rows-fr">
                 {townRoles.map((role, index) => (
@@ -219,7 +393,7 @@ export function RoleGuide({ onBack }) {
                     key={role.id}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.05 }}
+                    transition={{ delay: index * 0.03 }}
                     className="h-full"
                   >
                     <RoleCard role={role} onClick={() => setSelectedRole(role)} />
@@ -232,7 +406,7 @@ export function RoleGuide({ onBack }) {
             <div className="mb-6">
               <div className="flex items-center gap-2 mb-3">
                 <div className="w-2 h-2 rounded-full bg-blood"></div>
-                <h3 className="text-xs uppercase tracking-wider text-neutral-500">Mafia</h3>
+                <h3 className="text-xs uppercase tracking-wider text-neutral-500">Mafia ({mafiaRoles.length} roles)</h3>
               </div>
               <div className="grid grid-cols-2 gap-3 auto-rows-fr">
                 {mafiaRoles.map((role, index) => (
@@ -240,7 +414,7 @@ export function RoleGuide({ onBack }) {
                     key={role.id}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: (townRoles.length + index) * 0.05 }}
+                    transition={{ delay: (townRoles.length + index) * 0.03 }}
                     className="h-full"
                   >
                     <RoleCard role={role} onClick={() => setSelectedRole(role)} />
@@ -253,7 +427,7 @@ export function RoleGuide({ onBack }) {
             <div>
               <div className="flex items-center gap-2 mb-3">
                 <div className="w-2 h-2 rounded-full bg-neutral"></div>
-                <h3 className="text-xs uppercase tracking-wider text-neutral-500">Neutral</h3>
+                <h3 className="text-xs uppercase tracking-wider text-neutral-500">Neutral ({neutralRoles.length} roles)</h3>
               </div>
               <div className="grid grid-cols-2 gap-3 auto-rows-fr">
                 {neutralRoles.map((role, index) => (
@@ -261,7 +435,7 @@ export function RoleGuide({ onBack }) {
                     key={role.id}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: (townRoles.length + mafiaRoles.length + index) * 0.05 }}
+                    transition={{ delay: (townRoles.length + mafiaRoles.length + index) * 0.03 }}
                     className="h-full"
                   >
                     <RoleCard role={role} onClick={() => setSelectedRole(role)} />
@@ -275,4 +449,3 @@ export function RoleGuide({ onBack }) {
     </motion.div>
   );
 }
-
